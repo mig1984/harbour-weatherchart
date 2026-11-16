@@ -1,0 +1,14 @@
+[Desktop Entry]
+Type=Application
+X-Nemo-Application-Type=silica-qt5
+Icon=harbour-weatherchart
+Exec=sailfish-qml harbour-weatherchart
+Name=Weather Chart
+Name[cs]=Počasí v grafu
+Comment=Weather forecast in charts
+Comment[cs]=Předpověď počasí v grafech
+
+[X-Sailjail]
+OrganizationName=cz.mig
+ApplicationName=harbour-weatherchart
+Permissions=Internet;Location
