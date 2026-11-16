@@ -5,3 +5,4 @@ deploy_key_weatherchart.pub
 # build output
 *.qm
 documentation.list
+RPMS/
