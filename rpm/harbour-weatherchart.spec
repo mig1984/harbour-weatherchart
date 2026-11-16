@@ -1,9 +1,9 @@
 Name:       harbour-weatherchart
-Version:    1.0.0
+Version:    1.1.0
 Release:    1
 Summary:    Weather forecast in charts (Klara-style) for Sailfish OS
-License:    MIT
-URL:        https://github.com/mig/harbour-weatherchart
+License:    GPLv3
+URL:        https://github.com/mig1984/harbour-weatherchart
 BuildArch:  noarch
 Source0:    %{name}-%{version}.tar.gz
 
@@ -45,11 +45,17 @@ done
 
 %files
 %defattr(-,root,root,-)
+%license LICENSE
 %{_datadir}/%{name}
 %{_datadir}/applications/%{name}.desktop
 %{_datadir}/icons/hicolor/*/apps/%{name}.png
 
 %changelog
+* Mon Nov 16 2026 Jan Molič <jan.molic@1984.cz> - 1.1.0-1
+- GPLv3 license
+- Finnish and Simplified Chinese UI strings
+- Spec URL fixed to the GitHub repository
+
 * Mon Nov 16 2026 Jan Molič <jan.molic@1984.cz> - 1.0.0-1
 - First stable release, repository published on GitHub
 * Sat Nov 14 2026 mig - 0.1.8-1

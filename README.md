@@ -122,3 +122,7 @@ Test only from the installed package via the launcher.
   (72 or 168).
 - `nowIndex` is computed from `clock.now` (Timer 60 s), so the dashed line
   moves without fetching data again.
+
+## Privacy
+
+The app has no server of its own. Coordinates of the selected place are sent to Open-Meteo (forecast and geocoding) and to OpenStreetMap Nominatim (reverse geocoding). Your current position is used only when you choose "Use current position". Saved locations stay on the device.
