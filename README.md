@@ -4,6 +4,12 @@ Sailfish OS app that displays the weather forecast as a chart, modelled on the
 Android app **Klara** (org.androworks.klara). Pure QML (noarch RPM),
 no C++ code, data from **Open-Meteo**.
 
+## Screenshots
+
+| 3-day temperature | 7-day temperature | Wind |
+|---|---|---|
+| ![3-day temperature](docs/screenshot-temp-3days.png) | ![7-day temperature](docs/screenshot-temp-7days.png) | ![Wind](docs/screenshot-wind.png) |
+
 ## Features
 
 - **Forecast chart** (QML Canvas) for 3 days (hourly) or 7 days:
