@@ -1,3 +1,7 @@
 build
 deploy_key_weatherchart
 deploy_key_weatherchart.pub
+
+# build output
+*.qm
+documentation.list
