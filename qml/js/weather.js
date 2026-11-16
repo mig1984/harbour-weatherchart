@@ -36,7 +36,7 @@ function forecastUrl(lat, lon, model) {
 
 // ---- languages --------------------------------------------------------------
 // Supported UI languages (2-letter codes). Anything else falls back to English.
-var LANGS = ["en", "cs", "sk", "de", "pl", "fr", "es", "it", "ru"]
+var LANGS = ["en", "cs", "sk", "de", "pl", "fr", "es", "it", "ru", "fi", "zh"]
 
 // "cs_CZ" / "cs" -> "cs"; unknown -> "en"
 function lc(lang) {
@@ -454,5 +454,52 @@ ru: {
         "Свежий ветер", "Сильный ветер", "Крепкий ветер", "Шторм", "Сильный шторм"],
     clouds: ["Ясно", "Преимущественно ясно", "Переменная облачность", "Облачно", "Пасмурно"],
     dirs: ["С", "СВ", "В", "ЮВ", "Ю", "ЮЗ", "З", "СЗ"]
+},
+fi: {
+    weather: "Sää", loading: "Ladataan...", feels_like: "Tuntuu",
+    forecast_3: "3 päivän ennuste", forecast_7: "7 päivän ennuste",
+    change_location: "Vaihda paikka", settings: "Asetukset", refresh: "Päivitä",
+    locations: "Paikat", search_place: "Hae paikka", use_current: "Käytä nykyistä sijaintia",
+    waiting_position: "Odotetaan sijaintia...", position_unavailable: "Sijainti ei ole käytettävissä",
+    position_timeout: "Sijainnin aikakatkaisu", results: "Tulokset", saved_locations: "Tallennetut paikat",
+    no_places: "Paikkoja ei löytynyt", no_saved: "Ei tallennettuja paikkoja", my_location: "Oma sijainti",
+    remove: "Poista", removing: "Poistetaan", could_not_load: "Ennustetta ei voitu ladata",
+    gusts: ", puuskat %1 m/s", forecast_model: "Ennustemalli", model_best: "Paras vastaavuus (auto)",
+    model_desc: "Open-Meteo-säämalli. 'Paras vastaavuus' valitsee sijainnille parhaan alueellisen mallin.",
+    default_range: "Oletusjakso", range_3: "3 päivää", range_7: "7 päivää", about: "Tietoja",
+    about_text: "Weather Chart %1 näyttää ennusteen kaavioina, esikuvana Android-sovellus Klara.<br>Sääaineisto: <a href='https://open-meteo.com/'>Open-Meteo.com</a> (CC BY 4.0). Paikkahaku Open-Meteo-geokoodauksella, käänteinen geokoodaus OpenStreetMap Nominatimilla. Sääkuvakkeet Sailfish OS -teemasta.",
+    wmo: { 0: "Selkeää", 1: "Enimmäkseen selkeää", 2: "Osittain pilvistä", 3: "Pilvistä",
+        45: "Sumu", 48: "Huurresumu", 51: "Kevyt tihkusade", 53: "Tihkusade", 55: "Voimakas tihkusade",
+        56: "Jäätävä tihkusade", 57: "Voimakas jäätävä tihkusade", 61: "Kevyt sade", 63: "Sade", 65: "Voimakas sade",
+        66: "Jäätävä sade", 67: "Voimakas jäätävä sade", 71: "Kevyt lumisade", 73: "Lumisade", 75: "Voimakas lumisade",
+        77: "Lumirakeet", 80: "Kevyt sadekuuro", 81: "Sadekuuro", 82: "Voimakas sadekuuro",
+        85: "Lumikuuro", 86: "Voimakas lumikuuro", 95: "Ukkonen", 96: "Ukkonen ja rakeita", 99: "Voimakas ukkonen ja rakeita" },
+    beaufort: ["Tyyntä", "Heikko tuulenvire", "Heikko tuuli", "Lievä tuuli", "Kohtalainen tuuli",
+        "Raikas tuuli", "Kova tuuli", "Navakka tuuli", "Myrskyisä tuuli", "Myrsky"],
+    clouds: ["Selkeää", "Enimmäkseen selkeää", "Osittain pilvistä", "Pilvistä", "Täysin pilvistä"],
+    dirs: ["P", "KO", "I", "KA", "E", "LO", "L", "LU"]
+},
+zh: {
+    weather: "天气", loading: "加载中...", feels_like: "体感",
+    forecast_3: "3 天预报", forecast_7: "7 天预报",
+    change_location: "更换位置", settings: "设置", refresh: "刷新",
+    locations: "位置", search_place: "搜索地点", use_current: "使用当前位置",
+    waiting_position: "正在等待定位...", position_unavailable: "无法获取位置",
+    position_timeout: "定位超时", results: "结果", saved_locations: "已保存的位置",
+    no_places: "未找到地点", no_saved: "没有已保存的位置", my_location: "我的位置",
+    remove: "删除", removing: "正在删除", could_not_load: "无法加载预报",
+    gusts: "，阵风 %1 m/s", forecast_model: "预报模型", model_best: "最佳匹配（自动）",
+    model_desc: "Open-Meteo 天气模型。“最佳匹配”会为该位置选择最合适的区域模型。",
+    default_range: "默认范围", range_3: "3 天", range_7: "7 天", about: "关于",
+    about_text: "Weather Chart %1 以图表显示预报，灵感来自 Android 应用 Klara。<br>天气数据来自 <a href='https://open-meteo.com/'>Open-Meteo.com</a>（CC BY 4.0）。地点搜索使用 Open-Meteo 地理编码，反向地理编码使用 OpenStreetMap Nominatim。天气图标来自 Sailfish OS 主题。",
+    wmo: { 0: "晴朗", 1: "大致晴朗", 2: "局部多云", 3: "阴天",
+        45: "雾", 48: "雾凇", 51: "小毛毛雨", 53: "毛毛雨", 55: "浓毛毛雨",
+        56: "冻毛毛雨", 57: "浓冻毛毛雨", 61: "小雨", 63: "中雨", 65: "大雨",
+        66: "冻雨", 67: "强冻雨", 71: "小雪", 73: "中雪", 75: "大雪",
+        77: "雪粒", 80: "小阵雨", 81: "阵雨", 82: "强阵雨",
+        85: "小阵雪", 86: "大阵雪", 95: "雷暴", 96: "雷暴伴冰雹", 99: "强雷暴伴冰雹" },
+    beaufort: ["无风", "软风", "轻风", "微风", "和风", "清风", "强风", "疾风", "大风", "烈风"],
+    clouds: ["晴朗", "大致晴朗", "局部多云", "多云", "阴天"],
+    dirs: ["北", "东北", "东", "东南", "南", "西南", "西", "西北"]
 }
 }
