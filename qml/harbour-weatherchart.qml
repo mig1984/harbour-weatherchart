@@ -25,7 +25,10 @@ ApplicationWindow {
     property bool loading: false
     property string errorText: ""
     property int selectedIndex: -1          // hour index selected by tapping the chart
-    property int nowIndex: forecast ? W.indexNow(forecast.hours, clock.now) : -1
+    property int nowIndex: forecast ? W.indexNow(forecast.hours, now) : -1
+    // "now" ticks once a minute (and on activation) so the now-line moves;
+    // shared by the main page and the cover
+    property real now: Date.now()
     readonly property string lang: Qt.locale().name
     readonly property int days: settings.days
     readonly property string mode: settings.mode
@@ -40,15 +43,10 @@ ApplicationWindow {
     initialPage: Qt.resolvedUrl("pages/MainPage.qml")
     cover: Qt.resolvedUrl("cover/CoverPage.qml")
 
-    // "now" ticks once a minute so the now-line moves
-    QtObject {
-        id: clock
-        property real now: Date.now()
-    }
     Timer {
         interval: 60000; running: true; repeat: true
         onTriggered: {
-            clock.now = Date.now()
+            now = Date.now()
             // auto refresh every 10 minutes, also while minimized (cover visible)
             if (forecast && Date.now() - forecast.fetched > 10 * 60000)
                 refresh()
@@ -57,7 +55,7 @@ ApplicationWindow {
     Connections {
         target: Qt.application
         onActiveChanged: if (Qt.application.active) {
-            clock.now = Date.now()
+            now = Date.now()
             if (!forecast || Date.now() - forecast.fetched > 10 * 60000) refresh()
         }
     }
@@ -104,13 +102,6 @@ ApplicationWindow {
         if (!list.length) { loadLocations(); selectLocation(0); return }
         if (i === cur) selectLocation(0)
         else if (i < cur) settings.currentLocation = cur - 1
-    }
-    // temporary (GPS) location: shown but not necessarily saved
-    function useTemporaryLocation(loc) {
-        location = loc
-        selectedIndex = -1
-        forecast = null
-        refresh()
     }
 
     // ---- forecast ----------------------------------------------------------

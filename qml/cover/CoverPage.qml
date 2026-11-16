@@ -52,6 +52,7 @@ CoverBackground {
         count: 48
         mode: app.mode
         nowIndex: app.nowIndex
+        nowTime: app.now
         selectedIndex: -1
         lang: app.lang
     }

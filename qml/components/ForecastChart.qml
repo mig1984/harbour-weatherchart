@@ -10,7 +10,8 @@ import "../js/weather.js" as W
 //  - mode "wind":   wind speed curve (m/s), gusts as thin line, direction arrows
 //  - mode "clouds": symmetric grey cloud-cover band
 //  - precipitation bars at the bottom in all modes: blue = rain, white = snow
-//  - dashed vertical line = now, solid line = tapped time (signal tapped)
+//  - dashed vertical line = now; the solid selection line (signal tapped) is
+//    an overlay item, not drawn on the canvas
 Item {
     id: chart
 
@@ -49,7 +50,6 @@ Item {
     onCountChanged: canvas.requestPaint()
     onModeChanged: canvas.requestPaint()
     onNowTimeChanged: canvas.requestPaint()
-    onSelectedIndexChanged: canvas.requestPaint()
     onWidthChanged: canvas.requestPaint()
     onHeightChanged: canvas.requestPaint()
 
@@ -443,15 +443,37 @@ Item {
                 ctx.lineWidth = 1.5
                 dashedLine(ctx, Math.round(nx) + 0.5, iconRowH, bottom, 5)
             }
-            if (selectedIndex >= startIndex && selectedIndex < endIndex) {
-                var sx = Math.round((selectedIndex - startIndex + 0.5) * slotW) + 0.5
-                ctx.strokeStyle = Theme.highlightColor
-                ctx.lineWidth = 2
-                ctx.beginPath(); ctx.moveTo(sx, iconRowH); ctx.lineTo(sx, bottom); ctx.stroke()
-                ctx.fillStyle = Theme.highlightColor
-                ctx.beginPath()
-                ctx.moveTo(sx - 6, iconRowH); ctx.lineTo(sx + 6, iconRowH); ctx.lineTo(sx, iconRowH + 8)
-                ctx.closePath(); ctx.fill()
+        }
+    }
+
+    // Selection line: plain items instead of canvas drawing, so dragging the
+    // selection across the chart does not repaint the whole canvas.
+    Item {
+        id: selection
+        visible: selectedIndex >= startIndex && selectedIndex < endIndex
+        x: Math.round((selectedIndex - startIndex + 0.5) * slotW)
+        y: iconRowH
+        width: 1
+        height: chart.height - labelH - iconRowH
+        Rectangle {
+            x: -1
+            width: 2
+            height: parent.height
+            color: Theme.highlightColor
+        }
+        // downward triangle marker at the top (lower half of a rotated square)
+        Item {
+            x: -6
+            width: 12
+            height: 6
+            clip: true
+            Rectangle {
+                width: 8.5
+                height: 8.5
+                anchors.horizontalCenter: parent.horizontalCenter
+                y: -height / 2
+                rotation: 45
+                color: Theme.highlightColor
             }
         }
     }

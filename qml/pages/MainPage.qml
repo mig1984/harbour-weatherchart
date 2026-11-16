@@ -178,7 +178,7 @@ Page {
                 count: app.days * 24
                 mode: app.mode
                 nowIndex: app.nowIndex
-                nowTime: clockProxy.now
+                nowTime: app.now
                 selectedIndex: app.selectedIndex
                 lang: app.lang
                 onTapped: app.selectedIndex = index
@@ -208,20 +208,5 @@ Page {
             size: BusyIndicatorSize.Small
             running: app.loading && !!app.forecast
         }
-    }
-
-    // expose app clock to the chart
-    QtObject {
-        id: clockProxy
-        property real now: Date.now()
-    }
-    Timer {
-        interval: 60000; running: Qt.application.active; repeat: true
-        triggeredOnStart: true
-        onTriggered: clockProxy.now = Date.now()
-    }
-    Connections {
-        target: Qt.application
-        onActiveChanged: if (Qt.application.active) clockProxy.now = Date.now()
     }
 }
