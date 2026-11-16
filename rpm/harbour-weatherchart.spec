@@ -1,5 +1,5 @@
 Name:       harbour-weatherchart
-Version:    0.1.8
+Version:    1.0.0
 Release:    1
 Summary:    Weather forecast in charts (Klara-style) for Sailfish OS
 License:    MIT
@@ -50,6 +50,8 @@ done
 %{_datadir}/icons/hicolor/*/apps/%{name}.png
 
 %changelog
+* Mon Nov 16 2026 Jan Molič <jan.molic@1984.cz> - 1.0.0-1
+- First stable release, repository published on GitHub
 * Sat Nov 14 2026 mig - 0.1.8-1
 - Forecast refreshes every 10 minutes, also while minimized (cover)
 * Sat Nov 14 2026 mig - 0.1.7-1
