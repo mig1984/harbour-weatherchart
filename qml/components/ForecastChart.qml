@@ -7,7 +7,7 @@ import "../js/weather.js" as W
 //  - hour labels, alternating day bands, day labels at the bottom
 //  - mode "temp":   temperature curve, orange above 0 °C and blue below,
 //                   fill towards the zero line, extremes labelled
-//  - mode "wind":   wind speed curve (m/s), gusts as thin line, direction arrows,
+//  - mode "wind":   wind speed curve (m/s), direction arrows,
 //                   temperature outline (same colours as the temp mode)
 //  - mode "clouds": symmetric grey cloud-cover band, temperature outline
 //  - precipitation bars at the bottom in all modes: blue = rain, white = snow
@@ -251,11 +251,11 @@ Item {
             }
 
             // --- series arrays ---------------------------------------------
-            var xs = [], temps = [], winds = [], gusts = [], clouds = []
+            var xs = [], temps = [], winds = [], clouds = []
             for (i = startIndex; i < endIndex; i++) {
                 r = hours[i]
                 xs.push((i - startIndex + 0.5) * slotW)
-                temps.push(r.temp); winds.push(r.wind); gusts.push(r.gust); clouds.push(r.clouds)
+                temps.push(r.temp); winds.push(r.wind); clouds.push(r.clouds)
             }
 
             // --- main series ------------------------------------------------
@@ -326,18 +326,14 @@ Item {
                     }
                 }
             } else if (mode === "wind") {
-                var wmax = Math.max(5, Math.max.apply(null, gusts))
+                var wmax = Math.max(5, Math.max.apply(null, winds))
                 var wy = function (v) { return areaBottom - v / wmax * areaH }
-                var wys = winds.map(wy), gys = gusts.map(wy)
+                var wys = winds.map(wy)
                 ctx.beginPath()
                 curvePath(ctx, xs, wys)
                 ctx.lineTo(xs[xs.length - 1], areaBottom); ctx.lineTo(xs[0], areaBottom); ctx.closePath()
                 ctx.fillStyle = Theme.rgba(windColor, 0.45)
                 ctx.fill()
-                // gusts: thin neutral line (orange is reserved for temperature)
-                ctx.lineWidth = 1
-                ctx.strokeStyle = Theme.rgba(primary, 0.45)
-                ctx.beginPath(); curvePath(ctx, xs, gys); ctx.stroke()
                 ctx.lineWidth = Math.max(2, Theme.paddingSmall / 3)
                 ctx.strokeStyle = windColor
                 ctx.beginPath(); curvePath(ctx, xs, wys); ctx.stroke()

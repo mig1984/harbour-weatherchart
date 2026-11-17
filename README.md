@@ -20,9 +20,10 @@ no C++ code, data from **Open-Meteo**.
     blue below 0 °C**, frost band tinted, local extremes labelled with numbers,
   - **precipitation** in all modes at the bottom: **blue columns = rain,
     white columns with blue edge = snow**, maximum value labelled (mm / cm),
-  - **wind**: speed curve (m/s) with fill, thin line for gusts, direction arrows at the top
+  - **wind**: speed curve (m/s) with fill, direction arrows at the top
     (pointing where the wind blows to), extremes labelled, plus the **temperature outline**
-    in the same orange/blue colours as in the temperature mode,
+    in the same orange/blue colours as in the temperature mode (the gust value is shown in
+    the header for the selected time),
   - **cloud cover**: symmetrical grey band (width = % coverage), with the same
     **temperature outline** as in the wind mode,
   - **dashed vertical line = now** (moves every minute),

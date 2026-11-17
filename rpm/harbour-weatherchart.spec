@@ -1,5 +1,5 @@
 Name:       harbour-weatherchart
-Version:    1.1.1
+Version:    1.1.2
 Release:    1
 Summary:    Weather forecast in charts (Klara-style) for Sailfish OS
 License:    GPLv3
