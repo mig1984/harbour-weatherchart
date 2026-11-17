@@ -7,8 +7,9 @@ import "../js/weather.js" as W
 //  - hour labels, alternating day bands, day labels at the bottom
 //  - mode "temp":   temperature curve, orange above 0 °C and blue below,
 //                   fill towards the zero line, extremes labelled
-//  - mode "wind":   wind speed curve (m/s), gusts as thin line, direction arrows
-//  - mode "clouds": symmetric grey cloud-cover band
+//  - mode "wind":   wind speed curve (m/s), gusts as thin line, direction arrows,
+//                   temperature outline (same colours as the temp mode)
+//  - mode "clouds": symmetric grey cloud-cover band, temperature outline
 //  - precipitation bars at the bottom in all modes: blue = rain, white = snow
 //  - dashed vertical line = now; the solid selection line (signal tapped) is
 //    an overlay item, not drawn on the canvas
@@ -138,6 +139,32 @@ Item {
                 ctx.quadraticCurveTo(xs[i - 1], ys[i - 1], xc, yc)
             }
             ctx.lineTo(xs[xs.length - 1], ys[ys.length - 1])
+        }
+
+        // Outline of the temperature curve, orange above 0 °C and blue below.
+        // Used by the wind and cloud modes so that these views also show the
+        // temperature in the same way as the temperature mode.
+        function drawTempOutline(ctx, xs, temps, areaTop, areaBottom, lineW) {
+            var tmin = Math.min.apply(null, temps), tmax = Math.max.apply(null, temps)
+            var span = Math.max(8, tmax - tmin)
+            var mid = (tmax + tmin) / 2
+            var lo = mid - span / 2, hi = mid + span / 2
+            var h = areaBottom - areaTop
+            var ty = function (v) { return areaBottom - (v - lo) / (hi - lo) * h }
+            var ys = temps.map(ty)
+            var y0 = lo >= 0 ? areaBottom : (hi <= 0 ? areaTop : ty(0))
+            ctx.lineWidth = lineW
+            ctx.lineJoin = "round"
+            ctx.save()
+            ctx.beginPath(); ctx.rect(0, 0, width, y0); ctx.clip()
+            ctx.strokeStyle = warmColor
+            ctx.beginPath(); curvePath(ctx, xs, ys); ctx.stroke()
+            ctx.restore()
+            ctx.save()
+            ctx.beginPath(); ctx.rect(0, y0, width, height - y0); ctx.clip()
+            ctx.strokeStyle = coldColor
+            ctx.beginPath(); curvePath(ctx, xs, ys); ctx.stroke()
+            ctx.restore()
         }
 
         onPaint: {
@@ -307,12 +334,16 @@ Item {
                 ctx.lineTo(xs[xs.length - 1], areaBottom); ctx.lineTo(xs[0], areaBottom); ctx.closePath()
                 ctx.fillStyle = Theme.rgba(windColor, 0.45)
                 ctx.fill()
-                ctx.lineWidth = 1.5
-                ctx.strokeStyle = Theme.rgba(warmColor, 0.7)
+                // gusts: thin neutral line (orange is reserved for temperature)
+                ctx.lineWidth = 1
+                ctx.strokeStyle = Theme.rgba(primary, 0.45)
                 ctx.beginPath(); curvePath(ctx, xs, gys); ctx.stroke()
                 ctx.lineWidth = Math.max(2, Theme.paddingSmall / 3)
                 ctx.strokeStyle = windColor
                 ctx.beginPath(); curvePath(ctx, xs, wys); ctx.stroke()
+                // temperature outline, same colours as in the temperature mode
+                drawTempOutline(ctx, xs, temps, areaTop, areaBottom,
+                                Math.max(2, Theme.paddingSmall / 3))
                 // direction arrows along the top of the plot
                 var step = count > 96 ? 6 : 3
                 var ar = Math.min(slotW * step * 0.4, small * 0.8)
@@ -370,24 +401,8 @@ Item {
                 ctx.stroke()
 
                 // temperature curve on top of the clouds (same scale and colours as temp mode)
-                var tcMin = Math.min.apply(null, temps), tcMax = Math.max.apply(null, temps)
-                var tcSpan = Math.max(8, tcMax - tcMin), tcMid = (tcMax + tcMin) / 2
-                var tcLo = tcMid - tcSpan / 2, tcHi = tcMid + tcSpan / 2
-                var tcY = function (v) { return areaBottom - (v - tcLo) / (tcHi - tcLo) * areaH }
-                var tcYs = temps.map(tcY)
-                var tcY0 = tcLo >= 0 ? bottom : (tcHi <= 0 ? areaTop : tcY(0))
-                ctx.lineWidth = Math.max(2, Theme.paddingSmall / 3)
-                ctx.lineJoin = "round"
-                ctx.save()
-                ctx.beginPath(); ctx.rect(0, 0, W_, tcY0); ctx.clip()
-                ctx.strokeStyle = warmColor
-                ctx.beginPath(); curvePath(ctx, xs, tcYs); ctx.stroke()
-                ctx.restore()
-                ctx.save()
-                ctx.beginPath(); ctx.rect(0, tcY0, W_, H - tcY0); ctx.clip()
-                ctx.strokeStyle = coldColor
-                ctx.beginPath(); curvePath(ctx, xs, tcYs); ctx.stroke()
-                ctx.restore()
+                drawTempOutline(ctx, xs, temps, areaTop, areaBottom,
+                                Math.max(2, Theme.paddingSmall / 3))
             }
 
             // --- precipitation bars (bottom ~30 %) --------------------------

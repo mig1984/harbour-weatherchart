@@ -21,8 +21,10 @@ no C++ code, data from **Open-Meteo**.
   - **precipitation** in all modes at the bottom: **blue columns = rain,
     white columns with blue edge = snow**, maximum value labelled (mm / cm),
   - **wind**: speed curve (m/s) with fill, thin line for gusts, direction arrows at the top
-    (pointing where the wind blows to), extremes labelled,
-  - **cloud cover**: symmetrical grey band (width = % coverage),
+    (pointing where the wind blows to), extremes labelled, plus the **temperature outline**
+    in the same orange/blue colours as in the temperature mode,
+  - **cloud cover**: symmetrical grey band (width = % coverage), with the same
+    **temperature outline** as in the wind mode,
   - **dashed vertical line = now** (moves every minute),
   - **tapping the chart** = solid vertical line at the selected time; the header at the top
     shows the values for that time (temperature, feels-like, precipitation, description).
