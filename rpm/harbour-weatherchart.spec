@@ -1,5 +1,5 @@
 Name:       harbour-weatherchart
-Version:    1.1.2
+Version:    1.1.3
 Release:    1
 Summary:    Weather forecast in charts (Klara-style) for Sailfish OS
 License:    GPLv3
@@ -18,6 +18,27 @@ as a chart: temperature curve (blue below freezing), precipitation bars
 (blue rain, white snow), wind speed with direction arrows and cloud cover.
 Data from Open-Meteo. Saved locations, GPS location, tap in the chart to
 inspect a specific time.
+
+# This description section includes metadata for SailfishOS:Chum, see
+# https://github.com/sailfishos-chum/main/blob/main/Metadata.md
+%if 0%{?_chum}
+Title: Weather Chart
+Type: desktop-application
+DeveloperName: Jan Molič
+Categories:
+ - Science
+ - Geoscience
+Custom:
+  Repo: https://github.com/mig1984/harbour-weatherchart
+PackageIcon: https://github.com/mig1984/harbour-weatherchart/raw/main/icons/172x172/harbour-weatherchart.png
+Screenshots:
+ - https://github.com/mig1984/harbour-weatherchart/raw/main/docs/screenshot-temp-3days.png
+ - https://github.com/mig1984/harbour-weatherchart/raw/main/docs/screenshot-temp-7days.png
+ - https://github.com/mig1984/harbour-weatherchart/raw/main/docs/screenshot-wind.png
+Links:
+  Homepage: https://github.com/mig1984/harbour-weatherchart
+  Bugtracker: https://github.com/mig1984/harbour-weatherchart/issues
+%endif
 
 %prep
 %setup -q
@@ -51,6 +72,9 @@ done
 %{_datadir}/icons/hicolor/*/apps/%{name}.png
 
 %changelog
+* Sat Nov 21 2026 Jan Molič <jan.molic@1984.cz> - 1.1.3-1
+- Chum metadata (AppStream-style) in the spec description for the SailfishOS:Chum GUI
+
 * Mon Nov 16 2026 Jan Molič <jan.molic@1984.cz> - 1.1.0-1
 - GPLv3 license
 - Finnish and Simplified Chinese UI strings

@@ -6,3 +6,6 @@ deploy_key_weatherchart.pub
 *.qm
 documentation.list
 RPMS/
+
+# local helper scripts (may contain secrets)
+.scripts/

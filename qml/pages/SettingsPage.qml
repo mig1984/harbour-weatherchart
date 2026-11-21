@@ -53,7 +53,7 @@ Page {
                 textFormat: Text.StyledText
                 linkColor: Theme.highlightColor
                 onLinkActivated: Qt.openUrlExternally(link)
-                text: W.tr("about_text", app.lang).arg("1.0.0")
+                text: W.tr("about_text", app.lang).arg("1.1.3")
             }
             Item { width: 1; height: Theme.paddingLarge }
         }
